@@ -1,3 +1,4 @@
+package Observerr;
 
 public class Cocina implements Observador {
     @Override
