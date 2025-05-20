@@ -7,7 +7,6 @@ class Barista implements Colaborador {
     public Barista(String nombre, Mediator mediator) {
         this.nombre = nombre;
         this.mediator = mediator;
-        mediator.registrarColaborador(this);
     }
 
     @Override
@@ -26,8 +25,8 @@ class Barista implements Colaborador {
         mediator.prepararPedido(idPedido);
     }
     
-    public void finalizarPedido(int idPedido) {
+    public void finalizarPedido(int idPedido, Repartidor repartidor) {
         System.out.println("Barista " + nombre + " ha finalizado el pedido #" + idPedido);
-        mediator.pedidoListo(idPedido);
+        mediator.pedidoListo(idPedido, repartidor);
     }
 }

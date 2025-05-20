@@ -7,7 +7,6 @@ class Cajero implements Colaborador {
     public Cajero(String nombre, Mediator mediator) {
         this.nombre = nombre;
         this.mediator = mediator;
-        mediator.registrarColaborador(this);
     }
 
     @Override
@@ -21,9 +20,9 @@ class Cajero implements Colaborador {
         mediator.enviar(mensaje, this);
     }
     
-    public void tomarPedido(String detalle) {
+    public void tomarPedido(String detalle, Barista barista) {
         System.out.println("Cajero " + nombre + " toma un nuevo pedido: " + detalle);
-        mediator.crearPedido(detalle);
+        mediator.crearPedido(detalle, barista);
     }
     
     public void cancelarPedido(int idPedido) {

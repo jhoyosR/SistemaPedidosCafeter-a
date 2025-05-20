@@ -7,7 +7,6 @@ class Repartidor implements Colaborador {
     public Repartidor(String nombre, Mediator mediator) {
         this.nombre = nombre;
         this.mediator = mediator;
-        mediator.registrarColaborador(this);
     }
 
     @Override

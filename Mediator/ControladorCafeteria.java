@@ -24,10 +24,14 @@ class ControladorCafeteria implements Mediator {
     }
     
     @Override
-    public void crearPedido(String detalle) {
+    public void crearPedido(String detalle, Barista barista) {
         contadorPedidos++;
         Pedido nuevoPedido = new Pedido(contadorPedidos, detalle);
-        nuevoPedido.agregarObservador(cocina);
+        if (detalle.contains("Café")) {
+            registrarColaborador(barista);
+        } else {
+            nuevoPedido.agregarObservador(cocina);
+        }
         pedidos.add(nuevoPedido);
         
         String mensaje = "Nuevo pedido #" + contadorPedidos + " creado: " + detalle;
@@ -41,16 +45,19 @@ class ControladorCafeteria implements Mediator {
         if (pedido != null) {
             pedido.siguienteEstado();
             String mensaje = "Pedido #" + idPedido + " en preparación";
+            colaboradores.clear();
             notificarATodos(mensaje);
         }
     }
     
     @Override
-    public void pedidoListo(int idPedido) {
+    public void pedidoListo(int idPedido, Repartidor repartidor) {
         Pedido pedido = buscarPedido(idPedido);
         if (pedido != null) {
             pedido.siguienteEstado();
             String mensaje = "Pedido #" + idPedido + " está listo para entregar";
+            colaboradores.clear();
+            registrarColaborador(repartidor);
             notificarATodos(mensaje);
         }
     }
@@ -61,6 +68,7 @@ class ControladorCafeteria implements Mediator {
         if (pedido != null) {
             pedido.siguienteEstado();
             String mensaje = "Pedido #" + idPedido + " ha sido entregado";
+            colaboradores.clear();
             notificarATodos(mensaje);
         }
     }
